@@ -1,1 +1,29 @@
-// TODO
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    margin-top: 1.5rem;
+
+    color: var(--gray-300);
+
+    time {
+        display: flex;
+        align-items: center;
+        margin-right: 1.5rem;
+        
+    }
+
+    div {
+        display: flex;
+        align-items: center;
+        margin-right: 1.5rem;
+    }
+
+    p {
+        margin-left: 0.5rem;
+    }
+}

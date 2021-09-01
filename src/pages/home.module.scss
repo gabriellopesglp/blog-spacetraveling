@@ -1,1 +1,44 @@
-// TODO
+.postContainer {
+    max-width: 720px;
+    margin: 5rem auto 0;
+
+    img {
+        margin-bottom: 4rem;
+    }
+
+    button {
+        margin: 4rem 0;
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--pink);
+
+        background: none;
+        border: none;
+    }
+
+}
+
+.post {
+    a {
+        display: block;
+
+        & + a {
+            margin-top: 3rem;
+        }
+
+        strong {
+            font-size: 1.75rem;
+
+            transition: color 0.2s;
+        }
+
+        > p {
+           color: var(--gray-200); 
+           margin: 0.5rem 0 0;
+        }
+        
+        &:hover strong {
+            color: var(--pink);
+        }
+    }
+}
