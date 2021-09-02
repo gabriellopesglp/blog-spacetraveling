@@ -23,14 +23,31 @@ export function formatedData(props: formatedDataProps) {
     }
     );
 
-    // var words = data.toLowerCase().split(" ");
-    // for (var a = 0; a < words.length; a++) {
-    //     var w = words[a];
-    //     words[a] = w[0].toUpperCase() + w.slice(1);
-    // }
-    // return words.join(" ");
+    var words = data.toLowerCase().split(" ");
+    for (var a = 0; a < words.length; a++) {
+        var w = words[a];
+        words[a] = w[0].toUpperCase() + w.slice(1);
+    }
+    return words.join(" ");
+}
 
-    return data;
+export function formatedDataTime(props: formatedDataProps) {
+
+    var data = format(
+        new Date(props.newDate),
+        "d MMM yyy', às' HH:mm", {
+        locale: ptBR,
+    }
+    );
+
+    var words = data.toLowerCase().split(" ");
+    for (var a = 0; a < words.length; a++) {
+        var w = words[a];
+        if (words[a] !== 'às') {
+            words[a] = w[0].toUpperCase() + w.slice(1);
+        }
+    }
+    return words.join(" ");
 }
 
 export function readingTime(props: readingTimeProps) {
@@ -41,9 +58,6 @@ export function readingTime(props: readingTimeProps) {
         } else {
             total += contentItem.heading.split(' ').length;
         }
-
-        console.log(contentItem.body);
-
         const words = contentItem.body.map(item => item.text ? item.text.split(' ').length : 0);
 
         words.map(word => (total += word));

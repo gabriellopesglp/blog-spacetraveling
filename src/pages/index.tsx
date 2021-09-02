@@ -21,6 +21,10 @@ interface Post {
     title: string;
     subtitle: string;
     author: string;
+    banner: {
+      url: string;
+      alt: string;
+    };
   };
 }
 
@@ -31,9 +35,10 @@ interface PostPagination {
 
 interface HomeProps {
   postsPagination: PostPagination;
+  preview: boolean;
 }
 
-export default function Home({ postsPagination }: HomeProps) {
+export default function Home({ postsPagination, preview }: HomeProps) {
   const [hasNextPage, setHasNextPage] = useState(postsPagination.next_page);
   const [posts, setPosts] = useState<Post[]>(postsPagination.results);
 
@@ -44,11 +49,15 @@ export default function Home({ postsPagination }: HomeProps) {
     const newPosts = postsResponse.results.map(post => {
       return {
         uid: post.uid,
-        first_publication_date: formatedData({ newDate: post.first_publication_date }),
+        first_publication_date: post.first_publication_date,
         data: {
           title: post.data.title,
           subtitle: post.data.subtitle,
-          author: post.data.author
+          author: post.data.author,
+          banner: {
+            url: post.data.banner.url,
+            alt: post.data.banner.alt,
+          }
         }
       }
     });
@@ -62,25 +71,28 @@ export default function Home({ postsPagination }: HomeProps) {
       <Head>
         <title>Home | spacetraveling</title>
       </Head>
+
+      <Header />
+
       <main className={commonStyles.container}>
         <section className={styles.postContainer}>
-
-          <Header />
-
           <div className={styles.post}>
             {posts.map(post => (
               <Link key={post.uid} href={`/post/${post.uid}`}>
                 <a>
-                  <strong>{post.data.title}</strong>
-                  <p>{post.data.subtitle}</p>
-                  <div className={commonStyles.info}>
-                    <time>
-                      <FiCalendar size={20} />
-                      <p>{formatedData({ newDate: post.first_publication_date })}</p>
-                    </time>
-                    <div>
-                      <FiUser size={20} />
-                      <p>{post.data.author}</p>
+                  <img src={post.data.banner.url} alt={post.data.banner.alt} />
+                  <div>
+                    <strong>{post.data.title}</strong>
+                    <p>{post.data.subtitle}</p>
+                    <div className={commonStyles.info}>
+                      <time>
+                        <FiCalendar size={20} />
+                        <p>{formatedData({ newDate: post.first_publication_date })}</p>
+                      </time>
+                      <div>
+                        <FiUser size={20} />
+                        <p>{post.data.author}</p>
+                      </div>
                     </div>
                   </div>
                 </a>
@@ -92,18 +104,27 @@ export default function Home({ postsPagination }: HomeProps) {
             : ''
           }
         </section>
+
+        {preview && (
+          <aside>
+            <Link href="/api/exit-preview">
+              <a>Sair do modo Preview</a>
+            </Link>
+          </aside>
+        )}
       </main>
     </>
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ preview = false, previewData }) => {
   const prismic = getPrismicClient();
   const postsResponse = await prismic.query([
     Prismic.predicates.at('document.type', 'posts')
   ], {
     fetch: [],
     pageSize: 3,
+    ref: previewData?.ref ?? null,
   });
 
   const posts = postsResponse.results.map(post => {
@@ -113,7 +134,11 @@ export const getStaticProps: GetStaticProps = async () => {
       data: {
         title: post.data.title,
         subtitle: post.data.subtitle,
-        author: post.data.author
+        author: post.data.author,
+        banner: {
+          url: post.data.banner.url,
+          alt: post.data.banner.alt
+        }
       }
 
     }
@@ -127,8 +152,9 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      postsPagination
+      postsPagination,
+      preview
     },
-    redirect: 60 * 60, // 1 hour
+    revalidate: 60 * 30, // 30 minutes
   }
 };
