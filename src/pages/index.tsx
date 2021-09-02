@@ -123,7 +123,7 @@ export const getStaticProps: GetStaticProps = async ({ preview = false, previewD
     Prismic.predicates.at('document.type', 'posts')
   ], {
     fetch: [],
-    pageSize: 3,
+    pageSize: 10,
     ref: previewData?.ref ?? null,
   });
 
