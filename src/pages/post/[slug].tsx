@@ -74,8 +74,8 @@ export default function Post({ post, navigation, preview }: PostProps) {
   return (
     <>
       <Head>
-        <title>{post.data.title} | Spacetraveling</title>
-        <meta name="title" content={`${post.data.title} | </>spacetraveling.`} />
+        <title>{`${post.data.title} | </>spacetraveling.`}</title>
+
         <meta name="description" content={post.data.subtitle} />
 
         <meta property="og:type" content="website" />
