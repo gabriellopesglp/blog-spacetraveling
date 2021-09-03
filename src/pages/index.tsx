@@ -135,12 +135,13 @@ export default function Home({ postsPagination, preview }: HomeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
+export const getStaticProps: GetStaticProps = async ({ preview = false, previewData }) => {
   const prismic = getPrismicClient();
   const postsResponse = await prismic.query([
     Prismic.predicates.at('document.type', 'posts')
   ], {
     pageSize: 10,
+    ref: previewData?.ref ?? null,
   });
 
   const posts = postsResponse.results.map(post => {
