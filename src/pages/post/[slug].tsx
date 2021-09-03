@@ -15,6 +15,7 @@ import Link from 'next/link';
 import Comments from '../../components/Comments';
 
 interface Post {
+  uid: string;
   first_publication_date: string | null;
   last_publication_date: string | null;
   data: {
@@ -73,7 +74,25 @@ export default function Post({ post, navigation, preview }: PostProps) {
   return (
     <>
       <Head>
-        <title>{post.data.title} | spacetraveling</title>
+        <title>{post.data.title} | Spacetraveling</title>
+        <meta name="title" content={`${post.data.title} | </>spacetraveling.`} />
+        <meta name="description" content={post.data.subtitle} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`https://desafio-spacetraveling-blog.vercel.app/post/${post.uid}`} />
+        <meta property="og:title" content={`${post.data.title} | </>spacetraveling.`} />
+        <meta property="og:description" content={post.data.subtitle} />
+        <meta property="og:image" content={post.data.banner.url} />
+        <meta property="og:image:type" content="image/jpg" />
+
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={`https://desafio-spacetraveling-blog.vercel.app/post/${post.uid}`} />
+        <meta property="twitter:title" content={`${post.data.title} | </>spacetraveling.`} />
+        <meta property="twitter:description" content={post.data.subtitle} />
+        <meta property="twitter:image" content={post.data.banner.url} />
       </Head>
       <Header />
       <img className={styles.banner} src={post.data.banner.url} alt={post.data.banner.alt} />
@@ -153,17 +172,14 @@ export default function Post({ post, navigation, preview }: PostProps) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const prismic = getPrismicClient();
-  const posts = await prismic.query(
+  const posts = await prismic.query([
     Prismic.Predicates.at('document.type', 'posts'),
-  ).then(function (response) {
-    return response.results;
-  }
-  );
+  ]);
 
   return {
     paths: [
-      { params: { slug: posts[0].uid } },
-      { params: { slug: posts[1].uid } }
+      { params: { slug: posts.results[0].uid } },
+      { params: { slug: posts.results[1].uid } }
     ],
     fallback: true
   }

@@ -70,6 +70,25 @@ export default function Home({ postsPagination, preview }: HomeProps) {
     <>
       <Head>
         <title>Home | spacetraveling</title>
+
+        <meta name="title" content="</>spacetraveling." />
+        <meta name="description" content="Blog criado no desafio do curso de React da Rocketseat." />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://desafio-spacetraveling-blog.vercel.app/" />
+        <meta property="og:title" content="</>spacetraveling." />
+        <meta property="og:description" content="Blog criado no desafio do curso de React da Rocketseat." />
+        <meta property="og:image" content="/public/images/thumbnail.png" />
+        <meta property="og:image:type" content="image/png" />
+
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://desafio-spacetraveling-blog.vercel.app/" />
+        <meta property="twitter:title" content="</>spacetraveling." />
+        <meta property="twitter:description" content="Blog criado no desafio do curso de React da Rocketseat." />
+        <meta property="twitter:image" content="/public/images/thumbnail.png" />
       </Head>
 
       <Header />
@@ -117,14 +136,12 @@ export default function Home({ postsPagination, preview }: HomeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ preview = false, previewData }) => {
+export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   const prismic = getPrismicClient();
   const postsResponse = await prismic.query([
     Prismic.predicates.at('document.type', 'posts')
   ], {
-    fetch: [],
     pageSize: 10,
-    ref: previewData?.ref ?? null,
   });
 
   const posts = postsResponse.results.map(post => {
