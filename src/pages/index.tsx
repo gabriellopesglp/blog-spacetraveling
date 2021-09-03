@@ -74,6 +74,7 @@ export default function Home({ postsPagination, preview }: HomeProps) {
         <meta name="description" content="Blog criado no desafio do curso de React da Rocketseat." />
 
         <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="</>spacetraveling." />
         <meta property="og:url" content="https://desafio-spacetraveling-blog.vercel.app/" />
         <meta property="og:title" content="</>spacetraveling." />
         <meta property="og:description" content="Blog criado no desafio do curso de React da Rocketseat." />
