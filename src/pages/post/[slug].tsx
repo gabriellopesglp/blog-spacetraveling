@@ -14,6 +14,10 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Comments from '../../components/Comments';
 
+import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+
 interface Post {
   uid: string;
   first_publication_date: string | null;
@@ -31,6 +35,7 @@ interface Post {
       body: {
         text: string;
       }[];
+      markdown: string;
     }[];
   };
 }
@@ -70,6 +75,8 @@ export default function Post({ post, navigation, preview }: PostProps) {
   } else {
     hasEdit = false;
   }
+
+
 
   return (
     <>
@@ -127,6 +134,27 @@ export default function Post({ post, navigation, preview }: PostProps) {
                 <div
                   dangerouslySetInnerHTML={{
                     __html: RichText.asHtml(content.body)
+                  }}
+                />
+
+                <ReactMarkdown
+                  children={content.markdown}
+                  components={{
+                    code({ node, inline, className, children }) {
+                      const match = /language-(\w+)/.exec(className || '')
+                      return !inline && match ? (
+                        <SyntaxHighlighter
+                          children={String(children).replace(/\n$/, '')}
+                          style={dracula}
+                          language={match[1]}
+                          PreTag="div"
+                        />
+                      ) : (
+                        <code className={className}>
+                          {children}
+                        </code>
+                      )
+                    }
                   }}
                 />
               </article>
@@ -215,6 +243,7 @@ export const getStaticProps: GetStaticProps = async ({
         return {
           heading: content.heading,
           body: [...content.body],
+          markdown: RichText.asText(content.markdown) ?? null,
         }
       }),
     }
