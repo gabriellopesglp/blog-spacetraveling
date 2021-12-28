@@ -140,7 +140,7 @@ export default function Post({ post, navigation, preview }: PostProps) {
                 <ReactMarkdown
                   children={content.markdown}
                   components={{
-                    code({ node, inline, className, children }) {
+                    code({ inline, className, children }) {
                       const match = /language-(\w+)/.exec(className || '')
                       return !inline && match ? (
                         <SyntaxHighlighter
@@ -207,7 +207,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [
       { params: { slug: posts.results[0].uid } },
-      { params: { slug: posts.results[1].uid } }
+      // { params: { slug: posts.results[1].uid } }
     ],
     fallback: true
   }
@@ -227,6 +227,12 @@ export const getStaticProps: GetStaticProps = async ({
     ref: previewData?.ref ?? null,
   });
 
+  const baseUrl = process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000'
+    : 'https://desafio-spacetraveling-blog.vercel.app';
+
+  const thumbnailUrl = `${baseUrl}/api/thumbnail.png?title=${response.data.title}`;
+
   const post = {
     uid: response.uid,
     first_publication_date: response.first_publication_date,
@@ -235,8 +241,8 @@ export const getStaticProps: GetStaticProps = async ({
       title: response.data.title,
       subtitle: response.data.subtitle,
       banner: {
-        url: response.data.banner.url,
-        alt: response.data.banner.alt
+        url: response.data.banner.url ?? thumbnailUrl,
+        alt: response.data.banner.alt ?? "Banner do artigo"
       },
       author: response.data.author,
       content: response.data.content.map(content => {

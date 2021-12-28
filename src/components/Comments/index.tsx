@@ -1,6 +1,6 @@
 import { useUtterances } from '../../hooks/useUtterances';
 
-const commentNodeId = 'comments';
+const commentNodeId = 'inject-comments-for-uterances';
 
 const Comments = () => {
     useUtterances(commentNodeId);

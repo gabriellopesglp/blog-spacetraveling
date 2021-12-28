@@ -38,6 +38,10 @@ interface HomeProps {
   preview: boolean;
 }
 
+const baseUrl = process.env.NODE_ENV === 'development'
+  ? 'http://localhost:3000'
+  : 'https://desafio-spacetraveling-blog.vercel.app';
+
 export default function Home({ postsPagination, preview }: HomeProps) {
   const [hasNextPage, setHasNextPage] = useState(postsPagination.next_page);
   const [posts, setPosts] = useState<Post[]>(postsPagination.results);
@@ -47,6 +51,8 @@ export default function Home({ postsPagination, preview }: HomeProps) {
       .then(response => response.json());
 
     const newPosts = postsResponse.results.map(post => {
+      const thumbnailUrl = `${baseUrl}/api/thumbnail.png?title=${post.data.title}`;
+
       return {
         uid: post.uid,
         first_publication_date: post.first_publication_date,
@@ -55,8 +61,8 @@ export default function Home({ postsPagination, preview }: HomeProps) {
           subtitle: post.data.subtitle,
           author: post.data.author,
           banner: {
-            url: post.data.banner.url,
-            alt: post.data.banner.alt,
+            url: post.data.banner.url ?? thumbnailUrl,
+            alt: post.data.banner.alt ?? "Banner do artigo",
           }
         }
       }
@@ -136,16 +142,17 @@ export default function Home({ postsPagination, preview }: HomeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ preview = false, previewData }) => {
+export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   const prismic = getPrismicClient();
   const postsResponse = await prismic.query([
     Prismic.predicates.at('document.type', 'posts')
   ], {
-    pageSize: 10,
-    ref: previewData?.ref ?? null,
+    pageSize: 3,
   });
 
   const posts = postsResponse.results.map(post => {
+    const thumbnailUrl = `${baseUrl}/api/thumbnail.png?title=${post.data.title}`;
+
     return {
       uid: post.uid,
       first_publication_date: post.first_publication_date,
@@ -154,8 +161,8 @@ export const getStaticProps: GetStaticProps = async ({ preview = false, previewD
         subtitle: post.data.subtitle,
         author: post.data.author,
         banner: {
-          url: post.data.banner.url,
-          alt: post.data.banner.alt
+          url: post.data.banner.url ?? thumbnailUrl,
+          alt: post.data.banner.alt ?? "Banner do artigo"
         }
       }
 
