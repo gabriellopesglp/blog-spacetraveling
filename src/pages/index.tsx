@@ -81,7 +81,7 @@ export default function Home({ postsPagination, preview }: HomeProps) {
 
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="</>spacetraveling." />
-        <meta property="og:url" content="https://desafio-spacetraveling-blog.vercel.app/" />
+        <meta property="og:url" content="https://desafio-05-trilha-reactjs.vercel.app/" />
         <meta property="og:title" content="</>spacetraveling." />
         <meta property="og:description" content="Blog criado no desafio do curso de React da Rocketseat." />
         <meta property="og:image" content="https://i.imgur.com/T5iXqyp.png" />
@@ -91,7 +91,7 @@ export default function Home({ postsPagination, preview }: HomeProps) {
         <meta property="og:image:height" content="630" />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://desafio-spacetraveling-blog.vercel.app/" />
+        <meta property="twitter:url" content="https://desafio-05-trilha-reactjs.vercel.app/" />
         <meta property="twitter:title" content="</>spacetraveling." />
         <meta property="twitter:description" content="Blog criado no desafio do curso de React da Rocketseat." />
         <meta property="twitter:image" content="https://i.imgur.com/T5iXqyp.png" />

@@ -29,6 +29,8 @@ interface Post {
       url: string;
       alt: string;
     };
+    banner_position_v: string;
+    banner_position_h: string;
     author: string;
     content: {
       heading: string;
@@ -86,7 +88,7 @@ export default function Post({ post, navigation, preview }: PostProps) {
         <meta name="description" content={post.data.subtitle} />
 
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://desafio-spacetraveling-blog.vercel.app/post/${post.uid}`} />
+        <meta property="og:url" content={`https://desafio-05-trilha-reactjs.vercel.app/post/${post.uid}`} />
         <meta property="og:title" content={`${post.data.title} | </>spacetraveling.`} />
         <meta property="og:description" content={post.data.subtitle} />
         <meta property="og:image" content={post.data.banner.url} />
@@ -96,13 +98,13 @@ export default function Post({ post, navigation, preview }: PostProps) {
         <meta property="og:image:height" content="630" />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={`https://desafio-spacetraveling-blog.vercel.app/post/${post.uid}`} />
+        <meta property="twitter:url" content={`https://desafio-05-trilha-reactjs.vercel.app/post/${post.uid}`} />
         <meta property="twitter:title" content={`${post.data.title} | </>spacetraveling.`} />
         <meta property="twitter:description" content={post.data.subtitle} />
         <meta property="twitter:image" content={post.data.banner.url} />
       </Head>
       <Header />
-      <img className={styles.banner} src={post.data.banner.url} alt={post.data.banner.alt} />
+      <img className={styles.banner} style={{ objectPosition: `${post.data.banner_position_v}% ${post.data.banner_position_h ? post.data.banner_position_h : ''}%` }} src={post.data.banner.url} alt={post.data.banner.alt} />
       <main className={commonStyles.container}>
         <div className={styles.post}>
           <h1>{post.data.title}</h1>
@@ -244,6 +246,8 @@ export const getStaticProps: GetStaticProps = async ({
         url: response.data.banner.url ?? thumbnailUrl,
         alt: response.data.banner.alt ?? "Banner do artigo"
       },
+      banner_position_v: response.data.banner_position_v ?? '0',
+      banner_position_h: response.data.banner_position_h ?? null,
       author: response.data.author,
       content: response.data.content.map(content => {
         return {
