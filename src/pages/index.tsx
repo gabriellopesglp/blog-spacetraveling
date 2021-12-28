@@ -40,7 +40,7 @@ interface HomeProps {
 
 const baseUrl = process.env.NODE_ENV === 'development'
   ? 'http://localhost:3000'
-  : 'https://desafio-spacetraveling-blog.vercel.app';
+  : 'https://desafio-05-trilha-reactjs.vercel.app';
 
 export default function Home({ postsPagination, preview }: HomeProps) {
   const [hasNextPage, setHasNextPage] = useState(postsPagination.next_page);

@@ -229,7 +229,7 @@ export const getStaticProps: GetStaticProps = async ({
 
   const baseUrl = process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
-    : 'https://desafio-spacetraveling-blog.vercel.app';
+    : 'https://desafio-05-trilha-reactjs.vercel.app';
 
   const thumbnailUrl = `${baseUrl}/api/thumbnail.png?title=${response.data.title}`;
 
