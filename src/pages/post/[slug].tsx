@@ -235,7 +235,7 @@ export const getStaticProps: GetStaticProps = async ({
 
   const titleReplaced = response.data.title.replace(/[+]/g, '%2b');
 
-  const thumbnailUrl = `${baseUrl}/api/thumbnail.png?title=${titleReplaced}`;
+  const thumbnailUrl = `${baseUrl}/api/banner.png?title=${titleReplaced}`;
 
   const post = {
     uid: response.uid,

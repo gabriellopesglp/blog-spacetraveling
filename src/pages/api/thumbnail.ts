@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getScreenshot } from "./_lib/chromium";
+import { getScreenshotThumb } from "./_lib/chromium";
 import getThumbnailTemplate from "./_lib/thumbTemplate";
 
 const isDev = !process.env.AWS_REGION;
@@ -14,7 +14,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
         const html = getThumbnailTemplate(title);
 
-        const file = await getScreenshot(html, isDev);
+        const file = await getScreenshotThumb(html, isDev);
 
         res.setHeader('Content-Type', 'image/png');
         res.setHeader('Cache-Control', 'public, immutable, no-transform, s-maxage=31536000, max-age=31536000');

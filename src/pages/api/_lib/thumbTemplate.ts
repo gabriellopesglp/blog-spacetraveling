@@ -14,7 +14,11 @@ export default function getThumbnailTemplate(title: string) {
             margin: 0;
             font-family: Roboto, sans-serif;
             color: #FFF;
-            background: url(https://i.imgur.com/ei0OMpq.png);
+            background: #1A1D23;
+            background-image:
+            radial-gradient(circle at 25px 25px, rgba(136, 141, 167, 0.4) 2%, transparent 0%),
+            radial-gradient(circle at 75px 75px, rgba(126, 162, 170, 0.4) 2%, transparent 0%);
+            background-size: 100px 100px;
             height: 100vh;
         }
 

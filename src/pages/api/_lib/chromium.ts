@@ -16,7 +16,21 @@ async function getPage(isDev: boolean) {
     return _page;
 }
 
-export async function getScreenshot(
+export async function getScreenshotThumb(
+    html: string,
+    isDev: boolean
+) {
+    const page = await getPage(isDev);
+
+    await page.setViewport({ width: 1200, height: 630 });
+    await page.setContent(html);
+
+    const file = await page.screenshot({ type: 'png' });
+
+    return file;
+}
+
+export async function getScreenshotBanner(
     html: string,
     isDev: boolean
 ) {
