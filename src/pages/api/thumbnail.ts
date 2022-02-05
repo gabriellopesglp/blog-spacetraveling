@@ -8,11 +8,14 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     try {
         const title = String(req.query.title)
 
+        const images = req.query.images
+
+
         if (!title) {
             throw new Error('Title is required');
         }
 
-        const html = getThumbnailTemplate(title);
+        const html = getThumbnailTemplate(title, images);
 
         const file = await getScreenshotThumb(html, isDev);
 

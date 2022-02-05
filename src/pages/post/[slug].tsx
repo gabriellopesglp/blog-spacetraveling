@@ -29,8 +29,6 @@ interface Post {
       url: string;
       alt: string;
     };
-    banner_position_v: string;
-    banner_position_h: string;
     thumbnail: string;
     author: string;
     content: {
@@ -105,7 +103,7 @@ export default function Post({ post, navigation, preview }: PostProps) {
         <meta property="twitter:image" content={post.data.thumbnail} />
       </Head>
       <Header />
-      <img className={styles.banner} style={{ objectPosition: `${post.data.banner_position_v}% ${post.data.banner_position_h ? post.data.banner_position_h : ''}%` }} src={post.data.banner.url} alt={post.data.banner.alt} />
+      <img className={styles.banner} src={post.data.banner.url} alt={post.data.banner.alt} />
       <main className={commonStyles.container}>
         <div className={styles.post}>
           <h1>{post.data.title}</h1>
@@ -236,8 +234,16 @@ export const getStaticProps: GetStaticProps = async ({
 
   const titleReplaced = response.data.title.replace(/[+]/g, '%2b');
 
-  const thumbnailUrl = `${baseUrl}/api/thumbnail.png?title=${titleReplaced}`;
-  const bannerUrl = `${baseUrl}/api/banner.png?title=${titleReplaced}`;
+  const logos = response.data.techs.map(tech => {
+    return `&images=${tech.logo}`
+  })
+
+  var chars = { ':': '%3A', '/': '%2F', ',': '' };
+
+  const logosReplaced = logos.toString().replace(/[:/,]/g, m => chars[m]);
+
+  const thumbnailUrl = `${baseUrl}/api/thumbnail.png?title=${titleReplaced}${logosReplaced}`;
+  const bannerUrl = `${baseUrl}/api/banner.png?title=${titleReplaced}${logosReplaced}`;
 
   const post = {
     uid: response.uid,
@@ -250,8 +256,6 @@ export const getStaticProps: GetStaticProps = async ({
         url: response.data.banner.url ?? bannerUrl,
         alt: response.data.banner.alt ?? "Banner do artigo"
       },
-      banner_position_v: response.data.banner_position_v ?? '0',
-      banner_position_h: response.data.banner_position_h ?? null,
       thumbnail: thumbnailUrl,
       author: response.data.author,
       content: response.data.content.map(content => {
@@ -279,8 +283,6 @@ export const getStaticProps: GetStaticProps = async ({
     after: response.id,
     orderings: '[document.first_publication_date desc]'
   });
-
-
 
   return {
     props: {

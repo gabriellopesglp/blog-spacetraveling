@@ -155,7 +155,15 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   const posts = postsResponse.results.map(post => {
     const titleReplaced = post.data.title.replace(/[+]/g, '%2b');
 
-    const thumbnailUrl = `${baseUrl}/api/thumbnail.png?title=${titleReplaced}`;
+    const logos = post.data.techs.map(tech => {
+      return `&images=${tech.logo}`
+    })
+
+    var chars = { ':': '%3A', '/': '%2F', ',': '' };
+
+    const logosReplaced = logos.toString().replace(/[:/,]/g, m => chars[m]);
+
+    const thumbnailUrl = `${baseUrl}/api/thumbnail.png?title=${titleReplaced}${logosReplaced}`;
 
     return {
       uid: post.uid,

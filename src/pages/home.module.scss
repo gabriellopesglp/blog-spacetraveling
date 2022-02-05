@@ -1,5 +1,4 @@
 .postContainer {
-    max-width: 720px;
     margin: 3rem auto 0;
 
     img {
@@ -36,22 +35,22 @@
 
             img {
                 width: 100%;
-                height: 10rem;
+                height: 100%;
                 margin-bottom: 1rem;
-            } 
+            }
         }
 
-        
+
         strong {
             font-size: 1.75rem;
             transition: color 0.2s;
         }
 
         strong + p {
-            color: var(--gray-200); 
+            color: var(--gray-200);
             margin: 0.5rem 0 0;
         }
-        
+
 
         &:hover strong {
             color: var(--pink);

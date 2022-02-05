@@ -1,4 +1,18 @@
-export default function getThumbnailTemplate(title: string) {
+export default function getThumbnailTemplate(title, images) {
+    let logos
+
+    if (images.length > 1) {
+        logos = images.map(image => {
+            return `<img src=${image}><h2>+</h2>`
+        })
+    } else {
+        logos = images.map(image => {
+            return `<img src=${image}>`
+        })
+    }
+
+    logos = logos.toString().replace(',', '')
+
     return `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -34,11 +48,33 @@ export default function getThumbnailTemplate(title: string) {
 
         svg {
             height: 40px;
-            margin-top: 80px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        #container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        img {
+            width: 160px;
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        h2 {
+          font-size: 60px;
+        }
+
+        h2:last-child {
+          display: none;
         }
 
         h1 {
-            font-size: 62px;
+            font-size: 58px;
             line-height: 80px;
 
             max-width: 80%;
@@ -47,6 +83,10 @@ export default function getThumbnailTemplate(title: string) {
     </head>
     <body>
         <div id="wrapper">
+        <div id="container">
+          ${logos}
+        </div>
+
         <h1>${title}</h1>
 
         <svg width="541" height="100" viewBox="0 0 239 27" fill="none" xmlns="http://www.w3.org/2000/svg">

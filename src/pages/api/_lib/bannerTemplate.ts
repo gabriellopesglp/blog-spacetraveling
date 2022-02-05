@@ -1,4 +1,18 @@
-export default function getBannerTemplate(title: string) {
+export default function getBannerTemplate(images) {
+  let logos
+
+  if (images.length > 1) {
+    logos = images.map(image => {
+      return `<img src=${image}><h1>+</h1>`
+    })
+  } else {
+    logos = images.map(image => {
+      return `<img src=${image}>`
+    })
+  }
+
+  logos = logos.toString().replace(',', '')
+
   return `<!DOCTYPE html>
   <html lang="en">
   <head>
@@ -22,7 +36,6 @@ export default function getBannerTemplate(title: string) {
           width: 100%;
           height: 100%;
           display: flex;
-          flex-direction: column;
           align-items: center;
           justify-content: center;
           text-align: center;
@@ -33,17 +46,34 @@ export default function getBannerTemplate(title: string) {
           margin-top: 80px;
       }
 
-      h1 {
-          font-size: 62px;
-          line-height: 80px;
+      #container {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
 
-          max-width: 80%;
+      img {
+          width: 160px;
+          padding-left: 40px;
+          padding-right: 40px;
+      }
+
+      h1 {
+        font-size: 60px;
+      }
+
+      h1:last-child {
+        display: none;
       }
       </style>
   </head>
   <body>
       <div id="wrapper">
-      <h1>${title}</h1>
+        <div id="container">
+          ${logos}
+        </div>
       </div>
   </body>
   </html>`
