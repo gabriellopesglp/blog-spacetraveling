@@ -31,6 +31,7 @@ interface Post {
     };
     banner_position_v: string;
     banner_position_h: string;
+    thumbnail: string;
     author: string;
     content: {
       heading: string;
@@ -91,7 +92,7 @@ export default function Post({ post, navigation, preview }: PostProps) {
         <meta property="og:url" content={`https://desafio-05-trilha-reactjs.vercel.app/post/${post.uid}`} />
         <meta property="og:title" content={`${post.data.title} | </>spacetraveling.`} />
         <meta property="og:description" content={post.data.subtitle} />
-        <meta property="og:image" content={post.data.banner.url} />
+        <meta property="og:image" content={post.data.thumbnail} />
         <meta property="og:image:type" content="image/jpg" />
 
         <meta property="og:image:width" content="1200" />
@@ -101,7 +102,7 @@ export default function Post({ post, navigation, preview }: PostProps) {
         <meta property="twitter:url" content={`https://desafio-05-trilha-reactjs.vercel.app/post/${post.uid}`} />
         <meta property="twitter:title" content={`${post.data.title} | </>spacetraveling.`} />
         <meta property="twitter:description" content={post.data.subtitle} />
-        <meta property="twitter:image" content={post.data.banner.url} />
+        <meta property="twitter:image" content={post.data.thumbnail} />
       </Head>
       <Header />
       <img className={styles.banner} style={{ objectPosition: `${post.data.banner_position_v}% ${post.data.banner_position_h ? post.data.banner_position_h : ''}%` }} src={post.data.banner.url} alt={post.data.banner.alt} />
@@ -235,7 +236,8 @@ export const getStaticProps: GetStaticProps = async ({
 
   const titleReplaced = response.data.title.replace(/[+]/g, '%2b');
 
-  const thumbnailUrl = `${baseUrl}/api/banner.png?title=${titleReplaced}`;
+  const thumbnailUrl = `${baseUrl}/api/thumbnail.png?title=${titleReplaced}`;
+  const bannerUrl = `${baseUrl}/api/banner.png?title=${titleReplaced}`;
 
   const post = {
     uid: response.uid,
@@ -245,11 +247,12 @@ export const getStaticProps: GetStaticProps = async ({
       title: response.data.title,
       subtitle: response.data.subtitle,
       banner: {
-        url: response.data.banner.url ?? thumbnailUrl,
+        url: response.data.banner.url ?? bannerUrl,
         alt: response.data.banner.alt ?? "Banner do artigo"
       },
       banner_position_v: response.data.banner_position_v ?? '0',
       banner_position_h: response.data.banner_position_h ?? null,
+      thumbnail: thumbnailUrl,
       author: response.data.author,
       content: response.data.content.map(content => {
         return {
