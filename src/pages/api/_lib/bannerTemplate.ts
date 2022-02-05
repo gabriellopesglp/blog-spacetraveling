@@ -14,7 +14,7 @@ export default function getBannerTemplate(title: string) {
           margin: 0;
           font-family: Roboto, sans-serif;
           color: #FFF;
-          background: url(https://i.imgur.com/ei0OMpq.png) #1A1D23;
+          background: url(https://i.imgur.com/C3Q0HFu.png) #1A1D23;
           height: 100vh;
       }
 
