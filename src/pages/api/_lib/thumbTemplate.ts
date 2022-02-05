@@ -4,24 +4,20 @@ export default function getThumbnailTemplate(title: string) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <title>Thumbnail</title>
-    
+
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
-    
+
         <style>
         body {
             margin: 0;
             font-family: Roboto, sans-serif;
             color: #FFF;
-            background: #121214;
-            background-image: 
-            radial-gradient(circle at 25px 25px, rgba(255, 255, 255, 0.2) 2%, transparent 0%), 
-            radial-gradient(circle at 75px 75px, rgba(255, 255, 255, 0.2) 2%, transparent 0%);
-            background-size: 100px 100px;
+            background: url(https://i.imgur.com/ei0OMpq.png);
             height: 100vh;
         }
-    
+
         #wrapper {
             width: 100%;
             height: 100%;
@@ -31,16 +27,16 @@ export default function getThumbnailTemplate(title: string) {
             justify-content: center;
             text-align: center;
         }
-    
+
         svg {
             height: 40px;
             margin-top: 80px;
         }
-    
+
         h1 {
             font-size: 62px;
             line-height: 80px;
-    
+
             max-width: 80%;
         }
         </style>
@@ -48,7 +44,7 @@ export default function getThumbnailTemplate(title: string) {
     <body>
         <div id="wrapper">
         <h1>${title}</h1>
-    
+
         <svg width="541" height="100" viewBox="0 0 239 27" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M68.3409 11.6421C68.0171 9.23013 66.0739 7.73865 62.7671 7.73865C59.4176 7.73865 57.2102 9.28979 57.2188 11.8125C57.2102 13.7727 58.446 15.0426 61.0028 15.554L63.2699 16.0057C64.4119 16.2358 64.9318 16.6534 64.9489 17.3097C64.9318 18.0852 64.0881 18.6392 62.8182 18.6392C61.5227 18.6392 60.6619 18.0852 60.4403 17.0199L56.8693 17.2074C57.2102 19.7131 59.3409 21.2557 62.8097 21.2557C66.2017 21.2557 68.6307 19.5256 68.6392 16.9432C68.6307 15.0512 67.3949 13.9176 64.8551 13.3977L62.4858 12.9205C61.2671 12.6563 60.8153 12.2387 60.8239 11.608C60.8153 10.8239 61.7017 10.3125 62.8267 10.3125C64.0881 10.3125 64.8381 11.0029 65.0171 11.8466L68.3409 11.6421Z" fill="#F8F8F8"/>
             <path d="M70.9254 25.9091H74.5561V18.9034H74.6669C75.1698 19.9943 76.2692 21.2131 78.3828 21.2131C81.3658 21.2131 83.6925 18.8523 83.6925 14.4716C83.6925 9.97161 81.2635 7.73865 78.3913 7.73865C76.201 7.73865 75.1527 9.04263 74.6669 10.108H74.505V7.9091H70.9254V25.9091ZM74.4794 14.4546C74.4794 12.1193 75.468 10.6279 77.2323 10.6279C79.0305 10.6279 79.9851 12.1875 79.9851 14.4546C79.9851 16.7387 79.0135 18.3239 77.2323 18.3239C75.4851 18.3239 74.4794 16.7898 74.4794 14.4546Z" fill="#F8F8F8"/>

@@ -51,7 +51,9 @@ export default function Home({ postsPagination, preview }: HomeProps) {
       .then(response => response.json());
 
     const newPosts = postsResponse.results.map(post => {
-      const thumbnailUrl = `${baseUrl}/api/thumbnail.png?title=${post.data.title}`;
+      const titleReplaced = post.data.title.replace(/[+]/g, '%2b');
+
+      const thumbnailUrl = `${baseUrl}/api/thumbnail.png?title=${titleReplaced}`;
 
       return {
         uid: post.uid,
@@ -151,7 +153,9 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   });
 
   const posts = postsResponse.results.map(post => {
-    const thumbnailUrl = `${baseUrl}/api/thumbnail.png?title=${post.data.title}`;
+    const titleReplaced = post.data.title.replace(/[+]/g, '%2b');
+
+    const thumbnailUrl = `${baseUrl}/api/thumbnail.png?title=${titleReplaced}`;
 
     return {
       uid: post.uid,

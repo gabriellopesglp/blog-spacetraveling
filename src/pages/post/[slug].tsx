@@ -233,7 +233,9 @@ export const getStaticProps: GetStaticProps = async ({
     ? 'http://localhost:3000'
     : 'https://desafio-05-trilha-reactjs.vercel.app';
 
-  const thumbnailUrl = `${baseUrl}/api/thumbnail.png?title=${response.data.title}`;
+  const titleReplaced = response.data.title.replace(/[+]/g, '%2b');
+
+  const thumbnailUrl = `${baseUrl}/api/thumbnail.png?title=${titleReplaced}`;
 
   const post = {
     uid: response.uid,
