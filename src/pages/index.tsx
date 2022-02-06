@@ -158,8 +158,9 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
     const logos = post.data.techs.map(tech => {
       const w = tech.width ? tech.width : '160';
       const h = tech.height ? tech.height : '160';
+      const color = tech.color ? tech.color : 'none';
 
-      return `&images=${tech.logo}@${w}@${h}`
+      return `&images=${tech.logo}@${w}@${h}@${color}`;
     })
 
     var chars = { ':': '%3A', '/': '%2F', ',': '', '@': '%40' };

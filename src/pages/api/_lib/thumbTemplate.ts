@@ -5,23 +5,27 @@ export default function getThumbnailTemplate(title, images) {
         logos = images.map(image => {
             const width = image.split('@')[1];
             const height = image.split('@')[2];
+            const color = image.split('@')[3];
 
-            return `<img src=${image.split('@')[0]} width=${width} height=${height}><h2>+</h2>`
+            return `<img src=${image.split('@')[0]} width=${width} height=${height} style="filter: var(--${color})"><h2>+</h2>`
         })
     } else {
         logos = images.map(image => {
             const width = image.split('@')[1];
             const height = image.split('@')[2];
+            const color = image.split('@')[3];
 
-            return `<img src=${image.split('@')[0]} width=${width} height=${height}>`
+            return `<img src=${image.split('@')[0]} width=${width} height=${height} style="filter: var(--${color})">`
         })
     }
 
-    logos = logos.toString().replace(",", "")
-    logos = logos.toString().replace(",", "")
-    logos = logos.toString().replace(",", "")
-    logos = logos.toString().replace(",", "")
-    logos = logos.toString().replace(",", "")
+    logos = logos.toString()
+    logos = logos.replace(",", "")
+    logos = logos.replace(",", "")
+    logos = logos.replace(",", "")
+    logos = logos.replace(",", "")
+    logos = logos.replace(",", "")
+    logos = logos.replace(",", "")
 
     return `<!DOCTYPE html>
     <html lang="en">
@@ -34,14 +38,23 @@ export default function getThumbnailTemplate(title, images) {
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
 
         <style>
+        :root {
+            --white: invert(100%) sepia(7%) saturate(927%) hue-rotate(217deg) brightness(117%) contrast(100%);
+            --none: none;
+            --gray-100: #F8F8F8;
+            --gray-200: #D7D7D7;
+            --gray-300: #BBBBBB;
+            --pink: #FF57B2;
+        }
+
         body {
             margin: 0;
             font-family: Roboto, sans-serif;
             color: #FFF;
             background: #1A1D23;
             background-image:
-            radial-gradient(circle at 25px 25px, rgba(136, 141, 167, 0.4) 2%, transparent 0%),
-            radial-gradient(circle at 75px 75px, rgba(126, 162, 170, 0.4) 2%, transparent 0%);
+            radial-gradient(circle at 25px 25px, rgba(255, 87, 178, 0.4) 2%, transparent 0%),
+            radial-gradient(circle at 75px 75px, rgba(255, 87, 178, 0.4) 2%, transparent 0%);
             background-size: 100px 100px;
             height: 100vh;
         }
@@ -57,7 +70,7 @@ export default function getThumbnailTemplate(title, images) {
         }
 
         svg {
-            height: 40px;
+            height: 54px;
             margin-top: 40px;
             margin-bottom: 20px;
         }

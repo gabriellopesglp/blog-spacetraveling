@@ -5,23 +5,27 @@ export default function getBannerTemplate(images) {
     logos = images.map(image => {
       const width = image.split('@')[1];
       const height = image.split('@')[2];
+      const color = image.split('@')[3];
 
-      return `<img src=${image.split('@')[0]} width=${width} height=${height}><h1>+</h1>`
+      return `<img src=${image.split('@')[0]} width=${width} height=${height} style="filter: var(--${color})"><h1>+</h1>`
     })
   } else {
     logos = images.map(image => {
       const width = image.split('@')[1];
       const height = image.split('@')[2];
+      const color = image.split('@')[3];
 
-      return `<img src=${image.split('@')[0]} width=${width} height=${height}>`
+      return `<img src=${image.split('@')[0]} width=${width} height=${height} "filter: var(--${color})">`
     })
   }
 
-  logos = logos.toString().replace(",", "")
-  logos = logos.toString().replace(",", "")
-  logos = logos.toString().replace(",", "")
-  logos = logos.toString().replace(",", "")
-  logos = logos.toString().replace(",", "")
+  logos = logos.toString()
+  logos = logos.replace(",", "")
+  logos = logos.replace(",", "")
+  logos = logos.replace(",", "")
+  logos = logos.replace(",", "")
+  logos = logos.replace(",", "")
+  logos = logos.replace(",", "")
 
   return `<!DOCTYPE html>
   <html lang="en">
@@ -34,6 +38,15 @@ export default function getBannerTemplate(images) {
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
 
       <style>
+      :root {
+        --white: invert(100%) sepia(7%) saturate(927%) hue-rotate(217deg) brightness(117%) contrast(100%);
+        --none: none;
+        --gray-100: #F8F8F8;
+        --gray-200: #D7D7D7;
+        --gray-300: #BBBBBB;
+        --pink: #FF57B2;
+      }
+
       body {
           margin: 0;
           font-family: Roboto, sans-serif;
@@ -49,6 +62,10 @@ export default function getBannerTemplate(images) {
           align-items: center;
           justify-content: center;
           text-align: center;
+      }
+
+      .logo-svg {
+          filter: var(--white);
       }
 
       svg {
