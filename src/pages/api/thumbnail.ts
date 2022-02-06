@@ -10,7 +10,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
         const images = req.query.images
 
-
         if (!title) {
             throw new Error('Title is required');
         }

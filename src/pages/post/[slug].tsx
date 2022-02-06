@@ -235,12 +235,15 @@ export const getStaticProps: GetStaticProps = async ({
   const titleReplaced = response.data.title.replace(/[+]/g, '%2b');
 
   const logos = response.data.techs.map(tech => {
-    return `&images=${tech.logo}`
+    const w = tech.width ? tech.width : '160';
+    const h = tech.height ? tech.height : '160';
+
+    return `&images=${tech.logo}@${w}@${h}`
   })
 
-  var chars = { ':': '%3A', '/': '%2F', ',': '' };
+  var chars = { ':': '%3A', '/': '%2F', ',': '', '@': '%40' };
 
-  const logosReplaced = logos.toString().replace(/[:/,]/g, m => chars[m]);
+  const logosReplaced = logos.toString().replace(/[:/,@]/g, m => chars[m]);
 
   const thumbnailUrl = `${baseUrl}/api/thumbnail.png?title=${titleReplaced}${logosReplaced}`;
   const bannerUrl = `${baseUrl}/api/banner.png?title=${titleReplaced}${logosReplaced}`;

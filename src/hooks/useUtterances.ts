@@ -8,7 +8,7 @@ export const useUtterances = (commentNodeId) => {
         const script = document.createElement('script');
         script.src = 'https://utteranc.es/client.js';
         script.async = true;
-        script.setAttribute('repo', 'gabriellopesglp/desafio-05-trilha-reactjs');
+        script.setAttribute('repo', 'gabriellopesglp/blog-spacetraveling');
         script.setAttribute('issue-term', 'pathname');
         script.setAttribute('label', 'comment :speech_balloon:');
         script.setAttribute('theme', 'github-dark-orange');

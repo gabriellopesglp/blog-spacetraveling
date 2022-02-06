@@ -3,15 +3,25 @@ export default function getBannerTemplate(images) {
 
   if (images.length > 1) {
     logos = images.map(image => {
-      return `<img src=${image}><h1>+</h1>`
+      const width = image.split('@')[1];
+      const height = image.split('@')[2];
+
+      return `<img src=${image.split('@')[0]} width=${width} height=${height}><h1>+</h1>`
     })
   } else {
     logos = images.map(image => {
-      return `<img src=${image}>`
+      const width = image.split('@')[1];
+      const height = image.split('@')[2];
+
+      return `<img src=${image.split('@')[0]} width=${width} height=${height}>`
     })
   }
 
-  logos = logos.toString().replace(',', '')
+  logos = logos.toString().replace(",", "")
+  logos = logos.toString().replace(",", "")
+  logos = logos.toString().replace(",", "")
+  logos = logos.toString().replace(",", "")
+  logos = logos.toString().replace(",", "")
 
   return `<!DOCTYPE html>
   <html lang="en">
@@ -55,7 +65,6 @@ export default function getBannerTemplate(images) {
       }
 
       img {
-          width: 160px;
           padding-left: 40px;
           padding-right: 40px;
       }
